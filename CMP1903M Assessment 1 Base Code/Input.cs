@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,11 @@ namespace CMP1903M_Assessment_1_Base_Code
         //Gets text input from the keyboard
         public string manualTextInput()
         {
-
+            Console.Clear();
+            Console.Write("Enter Sentence:  ");
+            string s = Console.ReadLine();
+            if (s != null)
+                text = s;
             return text;
         }
 
@@ -27,7 +32,26 @@ namespace CMP1903M_Assessment_1_Base_Code
         //Gets text input from a .txt file
         public string fileTextInput(string fileName)
         {
+            //Check either file exists or not
+            if (File.Exists(fileName))
+            {
+                //getfile name
+                string file = Path.GetFileName(fileName);
 
+                //check either file is .txt or not
+                if (file.Split('.')[1] == "txt")
+                {
+                    //read all text inside file
+                    text = File.ReadAllText(fileName);
+                }
+                else
+                    Console.WriteLine("Please Enter .txt file");
+            }
+            else
+            {
+                Console.WriteLine("File does not exist in the specified directory!");
+                text = "";
+            }
             return text;
         }
 
